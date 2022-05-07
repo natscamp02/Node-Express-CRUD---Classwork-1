@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/favicon.svg" type="image/xml+svg" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <title>Proyecto | All Projects</title>
+</head>
+
+<body class="dark:bg-gray-900 dark:text-white">
+    <div class="grid grid-cols-[max-content,1fr] h-screen">
+        <%- include('layouts/sidebar'); %>
+
+            <main class="p-16">
+                <header class="mb-8 pb-2 flex justify-between">
+                    <h1 class="text-3xl font-semibold text-gray-700 flex items-center gap-2 dark:text-white">
+                        <span>All Projects</span>
+                    </h1>
+
+                    <a href="/projects/new"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex gap-2 items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        New Project
+                    </a>
+                </header>
+
+                <section>
+                    <!-- Project List -->
+                    <% if (projects.length) { %>
+                        <ul class="grid gap-12 grid-cols-2">
+                            <% projects.forEach(function(project){ %>
+                                <li>
+                                    <div
+                                        class="flex items-center gap-4 p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                                        <div>
+                                            <a href="<%= '/projects/' + project.id %>">
+                                                <h2 class="text-xl mb-2 font-semibold text-gray-700 dark:text-white">
+                                                    <%= project.title %>
+                                                </h2>
+                                            </a>
+
+                                            <span
+                                                class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                                <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                Due: <%= new Date(project.due_date).toLocaleDateString() %>
+                                            </span>
+                                        </div>
+
+                                        <a href="<%= '/projects/' + project.id %>"
+                                            class="ml-auto inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            View Details
+                                            <svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </li>
+                                <% }); %>
+                        </ul>
+                        <% } else { %>
+                            <div class="text-center">
+                                <h1 class="text-3xl mb-4">No Projects Found</h1>
+                                <h2 class="text-lg">Try creating a new one</h2>
+                            </div>
+                            <% } %>
+                </section>
+            </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/favicon.svg" type="image/xml+svg" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <title>Proyecto | <%= title %>
+    </title>
+</head>
+
+<body class="dark:bg-gray-900 dark:text-white">
+    <div class="grid grid-cols-[max-content,1fr] h-screen">
+        <%- include('layouts/sidebar'); %>
+
+            <main class="p-16">
+                <!-- Title -->
+                <h1
+                    class="text-3xl mb-4 uppercase font-semibold text-gray-600 flex items-center justify-between dark:text-white">
+                    <span>
+                        <%= project.title %>
+                    </span>
+
+                    <div class="flex gap-4">
+                        <a href="/projects/<%= project.id %>/edit" aria-label="edit project" title="Edit project">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <a href="/projects/<%= project.id %>/delete" aria-label="delete project" title="Delete project">
+                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </h1>
+
+                <!-- Dscription -->
+                <p class="mb-4">
+                    <%= project.description %>
+                </p>
+
+                <!-- Dates -->
+                <div class="mb-6">
+                    <span
+                        class="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
+                        <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Started: <%= new Date(project.start_date).toLocaleDateString() %>
+                    </span>
+
+
+                    <span
+                        class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                        <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Due: <%= new Date(project.due_date).toLocaleDateString() %>
+                    </span>
+
+                </div>
+
+
+
+                <!-- Notes -->
+                <div class="mt-8 p-6 bg-gray-200 dark:bg-gray-800 rounded">
+                    <h2
+                        class="text-2xl mb-3 font-semibold text-gray-600 flex items-center justify-between dark:text-white">
+                        <span class="">Notes</span>
+
+                        <a href="/projects/notes/<%= project.id %>/new" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium
+                                            rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center gap-2 dark:bg-blue-600 dark:hover:bg-blue-700
+                                            dark:focus:ring-blue-800">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Add a note
+                        </a>
+                    </h2>
+
+                    <% if (notes.length) { %>
+                        <ul class="p-4 space-y-4 overflow-y-auto max-h-[20rem]">
+                            <% notes.forEach(function(n) { %>
+                                <li
+                                    class="py-4 px-6 rounded flex items-center  group transition bg-gray-100 dark:bg-gray-600">
+
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                                    </svg>
+
+                                    <p class=" ml-4 max-w-[75ch]">
+                                        <%= n.note %>
+                                    </p>
+
+
+
+                                    <div class="flex gap-4 ml-auto">
+                                        <a href="/projects/notes/<%= n.id %>/edit"
+                                            class="text-blue-500 transition opacity-0 group-hover:opacity-100"
+                                            aria-label="edit note" title="Edit note">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                                </path>
+                                            </svg>
+                                        </a>
+
+                                        <a href="/projects/notes/<%= n.project_id %>/<%= n.id %>/delete"
+                                            class="text-red-500 transition opacity-0 group-hover:opacity-100"
+                                            aria-label="delete note" title="Delete note">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </li>
+                                <% }); %>
+                        </ul>
+                        <% } else { %>
+                            <h1 class="text-xl mt-4"> No notes found.</h1>
+                            <% } %>
+                </div>
+            </main>
+    </div>
+</body>
+
+</html>

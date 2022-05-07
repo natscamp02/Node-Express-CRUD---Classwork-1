@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/favicon.svg" type="image/xml+svg" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <title>Proyecto | <%= page_title %>
+    </title>
+</head>
+
+<body class="dark:bg-gray-900 dark:text-white">
+    <div class="grid grid-cols-[max-content,1fr] h-screen">
+        <%- include('layouts/sidebar'); %>
+
+            <main class="p-16">
+                <header class="mb-6 pb-2 flex justify-between">
+                    <h1 class="text-3xl font-semibold text-gray-700 flex items-center gap-2 dark:text-white">
+                        <span>
+                            <%= !note ? 'Add a new note' : 'Edit note' %>
+                        </span>
+                    </h1>
+                </header>
+
+                <section>
+                    <form
+                        action="<%= !note ? '/projects/notes/' + project_id : '/projects/notes/' + note.project_id + '/' + note.id + '/update' %>"
+                        method="post">
+
+                        <div class="mb-8">
+                            <label for="note"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Note</label>
+                            <textarea id="note" name="note" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
+<%=note?.note.trim()%></textarea>
+                        </div>
+
+
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <%= !note ? 'Add note' : 'Save changes' %>
+                        </button>
+                    </form>
+                </section>
+            </main>
+    </div>
+</body>
+
+</html>
